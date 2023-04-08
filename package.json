@@ -1,5 +1,7 @@
 {
   "dependencies": {
-    "node-cron": "^3.0.2"
+    "mssql": "^9.1.1",
+    "node-cron": "^3.0.2",
+    "puppeteer": "^19.8.5"
   }
 }
