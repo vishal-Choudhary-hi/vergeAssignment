@@ -69,7 +69,9 @@ cron.schedule("* * * * *", () => {
       );
       await browser.close();
       console.log(data);
-    } catch (error) {}
+    } catch (error) {
+      console.log(error.message);
+    }
     // const fileName = moment().format("DDMMYYYY") + "_verge.csv";
     // const csv = new ObjectsToCsv(data);
     // await csv.toDisk(fileName, { append: fs.existsSync(fileName) });
