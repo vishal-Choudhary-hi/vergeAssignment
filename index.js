@@ -3,38 +3,38 @@ const sql = require("mssql");
 const puppeteer = require("puppeteer");
 // const ObjectsToCsv = require("objects-to-csv");
 // const fs = require("fs");
-const { v4: uuidv4 } = require("uuid");
-const moment = require("moment");
-const config = {
-  user: "vishal",
-  password: "sql@Tintin",
-  server: "sqldatabaseserve.database.windows.net",
-  port: 1433,
-  database: "sqldatabase",
-  connectionTimeout: 3000,
-  parseJSON: true,
-  options: {
-    encrypt: true,
-    enableArithAbort: true,
-  },
-  pool: {
-    min: 0,
-    idleTimeoutMillis: 3000,
-  },
-};
-const pool = new sql.ConnectionPool(config);
-const poolConnect = pool.connect();
+// const { v4: uuidv4 } = require("uuid");
+// const moment = require("moment");
+// const config = {
+//   user: "vishal",
+//   password: "sql@Tintin",
+//   server: "sqldatabaseserve.database.windows.net",
+//   port: 1433,
+//   database: "sqldatabase",
+//   connectionTimeout: 3000,
+//   parseJSON: true,
+//   options: {
+//     encrypt: true,
+//     enableArithAbort: true,
+//   },
+//   pool: {
+//     min: 0,
+//     idleTimeoutMillis: 3000,
+//   },
+// };
+// const pool = new sql.ConnectionPool(config);
+// const poolConnect = pool.connect();
 
 cron.schedule("* * * * *", () => {
   (async () => {
-    await poolConnect;
-    try {
-      const request = pool.request();
-      const result = await request.query("select 1 as number");
-      console.log(result);
-    } catch (err) {
-      console.error("SQL error", err);
-    }
+    // await poolConnect;
+    // try {
+    //   const request = pool.request();
+    //   const result = await request.query("select 1 as number");
+    //   console.log(result);
+    // } catch (err) {
+    //   console.error("SQL error", err);
+    // }
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
     await page.goto("https://www.theverge.com/");
