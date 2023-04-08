@@ -6,11 +6,11 @@ const fs = require("fs");
 const { v4: uuidv4 } = require("uuid");
 const moment = require("moment");
 // const config = {
-//   user: "<user name>",
-//   password: "<password>",
-//   server: "<your SQL server name>.database.windows.net",
+//   user: "vishal",
+//   password: "sql@Tintin",
+//   server: "sqldatabaseserve.database.windows.net",
 //   port: 1433,
-//   database: "test",
+//   database: "sqldatabase",
 //   connectionTimeout: 3000,
 //   parseJSON: true,
 //   options: {
