@@ -35,39 +35,41 @@ cron.schedule("* * * * *", () => {
     // } catch (err) {
     //   console.error("SQL error", err);
     // }
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
-    await page.goto("https://www.theverge.com/");
+    try {
+      const browser = await puppeteer.launch();
+      const page = await browser.newPage();
+      await page.goto("https://www.theverge.com/");
 
-    const articles = await page.$$(
-      "div.duet--content-cards--content-card.relative.flex.flex-row.border-b.border-solid.border-gray-cc.px-0.last-of-type\\:border-b-0.dark\\:border-gray-31.py-16.hover\\:bg-\\[\\#FBF9FF\\]"
-    );
-    const data = await Promise.all(
-      articles.map(async (article, index) => {
-        const headline = await article.$eval(
-          ".inline.pr-4.text-16.font-bold.md\\:text-17",
-          (el) => el.textContent.trim()
-        );
-        const url = await article.$eval("a", (el) => el.href);
-        const author = await article.$eval(
-          ".relative.z-10.mr-8.font-bold.hover\\:shadow-underline-inherit",
-          (el) => el.textContent.trim()
-        );
-        const date = await article.$eval(
-          ".flex.items-center.font-normal",
-          (el) => el.textContent.trim()
-        );
-        return {
-          id: uuidv4(),
-          URL: url,
-          headline,
-          author,
-          date,
-        };
-      })
-    );
-    await browser.close();
-    console.log(data);
+      const articles = await page.$$(
+        "div.duet--content-cards--content-card.relative.flex.flex-row.border-b.border-solid.border-gray-cc.px-0.last-of-type\\:border-b-0.dark\\:border-gray-31.py-16.hover\\:bg-\\[\\#FBF9FF\\]"
+      );
+      const data = await Promise.all(
+        articles.map(async (article, index) => {
+          const headline = await article.$eval(
+            ".inline.pr-4.text-16.font-bold.md\\:text-17",
+            (el) => el.textContent.trim()
+          );
+          const url = await article.$eval("a", (el) => el.href);
+          const author = await article.$eval(
+            ".relative.z-10.mr-8.font-bold.hover\\:shadow-underline-inherit",
+            (el) => el.textContent.trim()
+          );
+          const date = await article.$eval(
+            ".flex.items-center.font-normal",
+            (el) => el.textContent.trim()
+          );
+          return {
+            id: uuidv4(),
+            URL: url,
+            headline,
+            author,
+            date,
+          };
+        })
+      );
+      await browser.close();
+      console.log(data);
+    } catch (error) {}
     // const fileName = moment().format("DDMMYYYY") + "_verge.csv";
     // const csv = new ObjectsToCsv(data);
     // await csv.toDisk(fileName, { append: fs.existsSync(fileName) });
