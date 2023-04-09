@@ -1,10 +1,10 @@
 const cron = require("node-cron");
 const sql = require("mssql");
 const puppeteer = require("puppeteer");
-// const ObjectsToCsv = require("objects-to-csv");
-// const fs = require("fs");
-// const { v4: uuidv4 } = require("uuid");
-// const moment = require("moment");
+const { v4: uuidv4 } = require("uuid");
+const moment = require("moment");
+const ObjectsToCsv = require("objects-to-csv");
+const fs = require("fs");
 // const config = {
 //   user: "vishal",
 //   password: "sql@Tintin",
@@ -38,7 +38,10 @@ cron.schedule("* * * * *", () => {
     try {
       const browser = await puppeteer.launch();
       const page = await browser.newPage();
-      await page.goto("https://www.theverge.com/");
+      await page.goto("https://www.theverge.com/", {
+        waitUntil: "load",
+        timeout: 0,
+      });
 
       const articles = await page.$$(
         "div.duet--content-cards--content-card.relative.flex.flex-row.border-b.border-solid.border-gray-cc.px-0.last-of-type\\:border-b-0.dark\\:border-gray-31.py-16.hover\\:bg-\\[\\#FBF9FF\\]"
